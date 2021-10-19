@@ -32,15 +32,14 @@ public class PersonServiceImpl implements PersonService{
 
 
     @Override
+    @Transactional
     public PersonDto create(PersonFormDto form) {
-
         Person saved = personDao.save(convert.toPerson(form));
-
         return convert.toPersonDto(saved);
-
     }
 
     @Override
+    @Transactional
     public boolean delete(Integer personId) {
 
         personDao.deleteById(personId);
@@ -72,6 +71,7 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PersonDto findById(Integer personId) {
         Optional<Person> foundById = personDao.findById(personId);
         Person person = foundById.orElseThrow(() -> new AppResourceNotFoundException("Could not find Person By Id " + personId));
@@ -79,10 +79,9 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PersonDto> findAll() {
-
-        List<Person> peopleFound = (List<Person>) personDao.findAll();
-
+        Iterable<Person> peopleFound = personDao.findAll();
         List<PersonDto> peopleDtoList = new ArrayList<>();
 
         peopleFound.forEach( (person) -> peopleDtoList.add(convert.toPersonDto(person)) );
@@ -92,12 +91,17 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PersonDto> findIdlePeople() {
 
         List<Person> idlePeople = personDao.findIdlePeople();
 
         List<PersonDto> peopleDtoList = new ArrayList<>();
 
+
+//        for (Person person: idlePeople) {
+//            peopleDtoList.add(convert.toPersonDto(person);
+//        }
         idlePeople.forEach(
                 (person) -> peopleDtoList.add(convert.toPersonDto(person))
         );
@@ -106,6 +110,7 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional
     public PersonDto addTodoItem(Integer personId, Integer todoItemId) {
 
         Person person = personDao.findById(personId).orElseThrow( () -> new AppResourceNotFoundException("person Not found"));
@@ -117,6 +122,7 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    @Transactional
     public PersonDto removeTodoItem(Integer personId, Integer todoItemId) {
 
         Person person = personDao.findById(personId).orElseThrow( () -> new AppResourceNotFoundException("person Not found"));
