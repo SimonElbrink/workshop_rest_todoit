@@ -11,6 +11,7 @@ import se.lexicon.todo_it_api.model.entity.Person;
 import se.lexicon.todo_it_api.model.entity.TodoItem;
 import se.lexicon.todo_it_api.model.forms.PersonFormDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,24 +73,43 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public PersonDto findById(Integer personId) {
-        return null;
+        Optional<Person> foundById = personDao.findById(personId);
+        Person person = foundById.orElseThrow(() -> new AppResourceNotFoundException("Could not find Person By Id " + personId));
+        return convert.toPersonDto(person);
     }
 
     @Override
     public List<PersonDto> findAll() {
-        return null;
+
+        List<Person> peopleFound = (List<Person>) personDao.findAll();
+
+        List<PersonDto> peopleDtoList = new ArrayList<>();
+
+        peopleFound.forEach( (person) -> peopleDtoList.add(convert.toPersonDto(person)) );
+
+        return peopleDtoList;
+
     }
 
     @Override
     public List<PersonDto> findIdlePeople() {
-        return null;
+
+        List<Person> idlePeople = personDao.findIdlePeople();
+
+        List<PersonDto> peopleDtoList = new ArrayList<>();
+
+        idlePeople.forEach(
+                (person) -> peopleDtoList.add(convert.toPersonDto(person))
+        );
+
+        return peopleDtoList;
     }
 
     @Override
     public PersonDto addTodoItem(Integer personId, Integer todoItemId) {
 
         Person person = personDao.findById(personId).orElseThrow( () -> new AppResourceNotFoundException("person Not found"));
-        TodoItem todoItem = todoItemDao.findById(todoItemId).orElseThrow( () -> new AppResourceNotFoundException("person Not found"));
+        TodoItem todoItem = todoItemDao.findById(todoItemId).orElseThrow( () -> new AppResourceNotFoundException("TodoItem Not found"));
 
             person.addTodoItem(todoItem);
 
@@ -100,7 +120,7 @@ public class PersonServiceImpl implements PersonService{
     public PersonDto removeTodoItem(Integer personId, Integer todoItemId) {
 
         Person person = personDao.findById(personId).orElseThrow( () -> new AppResourceNotFoundException("person Not found"));
-        TodoItem todoItem = todoItemDao.findById(todoItemId).orElseThrow( () -> new AppResourceNotFoundException("person Not found"));
+        TodoItem todoItem = todoItemDao.findById(todoItemId).orElseThrow( () -> new AppResourceNotFoundException("TodoItem Not found"));
 
         person.removeTodoItem(todoItem);
 
