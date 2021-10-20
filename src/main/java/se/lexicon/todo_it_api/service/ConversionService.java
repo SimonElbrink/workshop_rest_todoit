@@ -21,14 +21,18 @@ public class ConversionService {
     }
 
     public TodoItem toTodoItem(TodoItemFormDto formDto){
-        return new TodoItem(0, formDto.getTitle(), formDto.getDescription(),formDto.getDeadLine(), formDto.isDone(), null);
+        return new TodoItem(0, formDto.getTitle(), formDto.getDescription(), formDto.getDeadLine(), formDto.isDone(), null);
     }
 
     public TodoItemDto toTodoItemDto (TodoItem todoItem){
 
-        Person person = todoItem.getAssignee();
+        PersonDtoSmall personDtoSmall = null;
 
-        PersonDtoSmall personDtoSmall = new PersonDtoSmall(person.getPersonId(), person.getFirstName(), person.getLastName(), person.getBirthDate());
+        if (todoItem.getAssignee() != null){
+            Person person = todoItem.getAssignee();
+             personDtoSmall = new PersonDtoSmall(person.getPersonId(), person.getFirstName(), person.getLastName(), person.getBirthDate());
+        }
+
 
         return new TodoItemDto(todoItem.getTodoId(), todoItem.getTitle(), todoItem.getDescription(), todoItem.getDeadLine(), todoItem.isDone(), personDtoSmall);
     }

@@ -7,17 +7,17 @@ public class TodoItemDtoSmall {
     private Integer todoId;
     private String title;
     private String description;
-    private LocalDate deadline;
+    private LocalDate deadLine;
     private boolean done;
 
     public TodoItemDtoSmall() {
     }
 
-    public TodoItemDtoSmall(Integer todoId, String title, String description, LocalDate deadline, boolean done) {
+    public TodoItemDtoSmall(Integer todoId, String title, String description, LocalDate deadLine, boolean done) {
         this.todoId = todoId;
         this.title = title;
         this.description = description;
-        this.deadline = deadline;
+        this.deadLine = deadLine;
         this.done = done;
     }
 
@@ -45,12 +45,12 @@ public class TodoItemDtoSmall {
         this.description = description;
     }
 
-    public LocalDate getDeadline() {
-        return deadline;
+    public LocalDate getDeadLine() {
+        return deadLine;
     }
 
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
+    public void setDeadLine(LocalDate deadLine) {
+        this.deadLine = deadLine;
     }
 
     public boolean isDone() {

@@ -47,6 +47,8 @@ public class PersonControllerImpl implements PersonController {
     @Override
     @GetMapping(path = "/{id}")
     public ResponseEntity<PersonDto> findById(@PathVariable("id") Integer id) {
+
+
         return ResponseEntity.ok(personService.findById(id));
     }
 
@@ -72,7 +74,7 @@ public class PersonControllerImpl implements PersonController {
     public ResponseEntity<String> deletePerson(@PathVariable("id") Integer personId) {
 
         boolean delete = personService.delete(personId);
-        return ResponseEntity.ok(delete ? "Person was Delete" : "Person Not Delete");
+        return ResponseEntity.ok(delete ? "Person with id " + personId + " was deleted" : "Person Not Deleted");
     }
 
     @Override
@@ -82,13 +84,13 @@ public class PersonControllerImpl implements PersonController {
     }
 
     @Override
-    @GetMapping("/todo/api/v1/people/{id}/add")
+    @PutMapping("/{id}/todos/add")
     public ResponseEntity<PersonDto> assignTodoItem(@PathVariable("id") Integer personId, @RequestParam("todoItemId") Integer todoItemId) {
         return ResponseEntity.ok(personService.addTodoItem(personId, todoItemId));
     }
 
     @Override
-    @GetMapping("/todo/api/v1/people/{id}/remove")
+    @PutMapping("/{id}/todos/remove")
     public ResponseEntity<PersonDto> removeTodoItem(@PathVariable("id") Integer personId, @RequestParam("todoItemId") Integer todoItemId) {
         return ResponseEntity.ok(personService.removeTodoItem(personId, todoItemId));
     }

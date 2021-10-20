@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import se.lexicon.todo_it_api.model.entity.Person;
 import se.lexicon.todo_it_api.model.entity.TodoItem;
+import se.lexicon.todo_it_api.model.forms.PersonFormDto;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -24,6 +27,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -94,13 +99,10 @@ class PersonControllerTest {
         assertNotNull(webApplicationContext);
     }
 
-    /* Beginning of Comment
-    TODO Remove Comment When Ready to test Controller.
-
     @Test
     @DisplayName("Given valid PersonForm create() successfully persist object and return expected and status 201")
     void create() throws Exception{
-        PersonForm formInData = new PersonForm();
+        PersonFormDto formInData = new PersonFormDto();
         formInData.setFirstName("Test");
         formInData.setLastName("Testsson");
         formInData.setBirthDate(LocalDate.now());
@@ -122,7 +124,7 @@ class PersonControllerTest {
     @Test
     @DisplayName("Given form with invalid data create() throws MethodArgumentNotValidException and redirects")
     void create_validation_error() throws Exception{
-        PersonForm form = new PersonForm();
+        PersonFormDto form = new PersonFormDto();
         form.setFirstName("E");
         form.setLastName(null);
 
@@ -186,7 +188,7 @@ class PersonControllerTest {
         Integer id = persistedPeople.get(0).getPersonId();
         String firstName = "Arnold";
         String lastName = "Schwarzenegger";
-        PersonForm personForm = new PersonForm();
+        PersonFormDto personForm = new PersonFormDto();
         personForm.setFirstName(firstName);
         personForm.setLastName(lastName);
         personForm.setBirthDate(LocalDate.parse("1947-07-30"));
@@ -207,7 +209,7 @@ class PersonControllerTest {
         Integer id = persistedPeople.get(0).getPersonId();
         String firstName = "A";
         String lastName = "S";
-        PersonForm personForm = new PersonForm();
+        PersonFormDto personForm = new PersonFormDto();
         personForm.setFirstName(firstName);
         personForm.setLastName(lastName);
 
@@ -267,7 +269,5 @@ class PersonControllerTest {
                 .andExpect(jsonPath("$.personId").value(id))
                 .andExpect(jsonPath("$.todoItems.length()").value(0));
     }
-
-    */ // End of Comment
 
 }

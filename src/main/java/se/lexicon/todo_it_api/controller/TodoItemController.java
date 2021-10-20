@@ -8,6 +8,7 @@ import se.lexicon.todo_it_api.model.forms.TodoItemFormDto;
 import javax.validation.Valid;
 import java.util.Collection;
 
+@RequestMapping("/todo/dpi/v1/todos")
 public interface TodoItemController {
     @PostMapping
     ResponseEntity<TodoItemDto> create(@RequestBody TodoItemFormDto form);
