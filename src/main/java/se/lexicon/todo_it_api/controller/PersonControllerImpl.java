@@ -85,13 +85,13 @@ public class PersonControllerImpl implements PersonController {
 
     @Override
     @PutMapping("/{id}/todos/add")
-    public ResponseEntity<PersonDto> assignTodoItem(@PathVariable("id") Integer personId, @RequestParam("todoItemId") Integer todoItemId) {
+    public ResponseEntity<PersonDto> assignTodoItem(@PathVariable("id") Integer personId, @RequestParam("todoId") Integer todoItemId) {
         return ResponseEntity.ok(personService.addTodoItem(personId, todoItemId));
     }
 
     @Override
     @PutMapping("/{id}/todos/remove")
-    public ResponseEntity<PersonDto> removeTodoItem(@PathVariable("id") Integer personId, @RequestParam("todoItemId") Integer todoItemId) {
+    public ResponseEntity<PersonDto> removeTodoItem(@PathVariable("id") Integer personId, @RequestParam("todoId") Integer todoItemId) {
         return ResponseEntity.ok(personService.removeTodoItem(personId, todoItemId));
     }
 }
