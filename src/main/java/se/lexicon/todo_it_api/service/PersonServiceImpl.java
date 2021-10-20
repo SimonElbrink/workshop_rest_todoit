@@ -44,8 +44,7 @@ public class PersonServiceImpl implements PersonService{
 
         personDao.deleteById(personId);
 
-        return !personDao.existsById(personId);
-//        return personDao.findById(personId).isPresent();
+        return !personDao.findById(personId).isPresent();
     }
 
     @Override
