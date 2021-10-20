@@ -30,9 +30,7 @@ public class ConversionService {
 
         PersonDtoSmall personDtoSmall = new PersonDtoSmall(person.getPersonId(), person.getFirstName(), person.getLastName(), person.getBirthDate());
 
-        TodoItemDto todoItemDto = new TodoItemDto(todoItem.getTodoId(), todoItem.getTitle(), todoItem.getDescription(), todoItem.getDeadLine(), todoItem.isDone(), personDtoSmall);
-
-        return todoItemDto;
+        return new TodoItemDto(todoItem.getTodoId(), todoItem.getTitle(), todoItem.getDescription(), todoItem.getDeadLine(), todoItem.isDone(), personDtoSmall);
     }
 
     public PersonDto toPersonDto(Person person){
@@ -43,8 +41,7 @@ public class ConversionService {
             list.add(new TodoItemDtoSmall(item.getTodoId(),item.getTitle(), item.getDescription(), item.getDeadLine(), item.isDone()));
         }
 
-        PersonDto personDto = new PersonDto(person.getPersonId(), person.getFirstName(), person.getLastName(), person.getBirthDate(),list);
-        return personDto;
+        return new PersonDto(person.getPersonId(), person.getFirstName(), person.getLastName(), person.getBirthDate(),list);
     }
 
 
