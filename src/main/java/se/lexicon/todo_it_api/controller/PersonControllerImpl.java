@@ -10,6 +10,7 @@ import se.lexicon.todo_it_api.model.forms.PersonFormDto;
 import se.lexicon.todo_it_api.service.PersonService;
 import se.lexicon.todo_it_api.service.TodoItemService;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -28,7 +29,7 @@ public class PersonControllerImpl implements PersonController {
 
     @Override
     @PostMapping
-    public ResponseEntity<PersonDto> create(@RequestBody PersonFormDto creationForm) {
+    public ResponseEntity<PersonDto> create(@RequestBody @Valid PersonFormDto creationForm) {
         return ResponseEntity.status(HttpStatus.CREATED).body(personService.create(creationForm));
     }
 
@@ -79,7 +80,7 @@ public class PersonControllerImpl implements PersonController {
 
     @Override
     @PutMapping(path = "/{id}")
-    public ResponseEntity<PersonDto> update(@PathVariable("id") Integer personId, @RequestBody PersonFormDto updateForm) {
+    public ResponseEntity<PersonDto> update(@PathVariable("id") Integer personId, @RequestBody @Valid PersonFormDto updateForm) {
         return ResponseEntity.ok(personService.update(personId,updateForm));
     }
 

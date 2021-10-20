@@ -6,11 +6,12 @@ import se.lexicon.todo_it_api.model.dto.PersonDto;
 import se.lexicon.todo_it_api.model.dto.TodoItemDto;
 import se.lexicon.todo_it_api.model.forms.PersonFormDto;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 public interface PersonController {
     @PostMapping
-    ResponseEntity<PersonDto> create(@RequestBody PersonFormDto creationForm);
+    ResponseEntity<PersonDto> create(@RequestBody @Valid PersonFormDto creationForm);
 
     @GetMapping
     ResponseEntity<?> find(@RequestParam(value = "search", defaultValue = "all") String search);
@@ -23,7 +24,7 @@ public interface PersonController {
     ResponseEntity<Collection<PersonDto>> findIdlePerson();
 
     @PutMapping(path = "/{id}")
-    ResponseEntity<PersonDto> update(@PathVariable("id") Integer personId, @RequestBody PersonFormDto updateForm);
+    ResponseEntity<PersonDto> update(@PathVariable("id") Integer personId, @RequestBody @Valid PersonFormDto updateForm);
 
     @DeleteMapping(path = "/{id}")
     ResponseEntity<String> deletePerson(@PathVariable("id") Integer personId);
