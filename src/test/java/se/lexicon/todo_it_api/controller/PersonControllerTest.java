@@ -155,6 +155,16 @@ class PersonControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    @DisplayName("Given invalid search param return status bad_request")
+    void find_bad_request() throws Exception{
+
+        String search = "invalidType";
+        mockMvc.perform(get(TODO_API_V_1_PEOPLE).param("search", search))
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+    }
+
 
 
     @Test

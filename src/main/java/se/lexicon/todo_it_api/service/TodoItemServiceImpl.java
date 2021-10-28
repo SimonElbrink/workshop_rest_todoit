@@ -30,7 +30,11 @@ public class TodoItemServiceImpl implements TodoItemService{
     @Override
     @Transactional
     public TodoItemDto create(TodoItemFormDto form) {
-        return convert.toTodoItemDto(todoItemDAO.save(convert.toTodoItem(form)));
+        TodoItem entity = convert.toTodoItem(form);
+
+        TodoItem save = todoItemDAO.save(entity);
+
+        return convert.toTodoItemDto(save);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class TodoItemServiceImpl implements TodoItemService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<TodoItemDto> findByDoneStatus(boolean doneStatus) {
+    public List<TodoItemDto> findByDoneStatus(Boolean doneStatus) {
         return todoItemDAO.findByDoneStatus(doneStatus).stream()
                 .map(convert::toTodoItemDto)
                 .collect(Collectors.toList());

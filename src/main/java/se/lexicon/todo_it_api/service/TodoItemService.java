@@ -13,7 +13,7 @@ public interface TodoItemService {
     List<TodoItemDto> findAll();
     List<TodoItemDto> findAllUnassigned();
     List<TodoItemDto> findAllByPersonId(Integer personId);
-    List<TodoItemDto> findByDoneStatus(boolean doneStatus);
+    List<TodoItemDto> findByDoneStatus(Boolean doneStatus);
     List<TodoItemDto> findByDeadlineBetween(LocalDate start, LocalDate end);
     List<TodoItemDto> findByDeadlineBefore(LocalDate localDate);
     List<TodoItemDto> findByDeadlineAfter(LocalDate localDate);
