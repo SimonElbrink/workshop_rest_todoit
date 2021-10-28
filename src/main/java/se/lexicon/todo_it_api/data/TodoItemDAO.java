@@ -1,14 +1,14 @@
 package se.lexicon.todo_it_api.data;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import se.lexicon.todo_it_api.model.entity.TodoItem;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface TodoItemDAO extends CrudRepository<TodoItem, Integer> {
+public interface TodoItemDAO extends JpaRepository<TodoItem, Integer> {
     @Query("SELECT t FROM TodoItem t WHERE UPPER(t.title) LIKE UPPER(CONCAT('%',:string,'%'))")
     List<TodoItem> findByTitleContains(@Param("string") String string);
     @Query("SELECT t FROM TodoItem t WHERE t.assignee.personId = :personId")
